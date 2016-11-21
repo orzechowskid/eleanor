@@ -1,9 +1,12 @@
 # Eleanor
 Elegant and nearly zero-config routing, for React/Redux apps
+
 # About
 react-router is a perfectly fine piece of software but I don't like the idea of having to render my route tree, or even of assuming that there's a (non-shallow) tree of routes at all.  I wanted something tiny which worked like page.js but which used Redux to notify my app of route changes, and which isn't coupled with React, so here we are: a ~6KB (prod-minified) routing library named after my cat.
+
 # Getting Started
     $ npm install --save eleanor
+
 # Usage
 Briefly: import/require the module in your usual way, create a new Router object, and pass it a list of objects each containing an Express-compatible route string and a React component (or, I suppose, any other thing you want associated with that route string).
 
@@ -101,6 +104,7 @@ Here's a simple example in ES6:
     };
     
     export default connect(mapStateToProps)(App);
+
 # API
 ### Router({opts})
     const router = new Router({
@@ -129,6 +133,7 @@ tells your router to start listening for route changes.
 ### Router.stopRouting()
     router.stopRouting();
 tells your router to stop listening for route changes.
+
 # Redux Actions
 A Redux action is created and dispatched upon each route change:
 
@@ -148,6 +153,7 @@ The dispatched action is a [Flux Standard Action](https://github.com/acdlite/flu
     payload: Object // the matched route-definition object
     meta: Object // additional information such as route params
 `payload` is one of the route-definition objects passed to the router by the user.  `meta` currently contains one field, `routeParams`, which is a map of route params to route values.
+
 # Development
     $ git clone https://www.github.com/orzechowskid/eleanor/eleanor.git
     $ npm install
@@ -157,5 +163,6 @@ The dispatched action is a [Flux Standard Action](https://github.com/acdlite/flu
     $ open http://localhost:8080
     [ ... verify verify verify ... ]
     $ npm run build-prod
+
 # Testing
 I've tested this with exactly one app in one browser on one platform.  I don't think I'm doing anything too crazy or stupid in the code, but caveat emptor.
