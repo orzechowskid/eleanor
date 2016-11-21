@@ -1,7 +1,7 @@
 import {
   actionType,
 
-  buildReduxAction,
+  dispatchAction,
   buildRouteMaps,
   getRouteFromElement
 } from './utils';
@@ -11,6 +11,7 @@ class Router {
     const {
       initialRoute,
       routes,
+      startRouting,
       store
     } = args;
 
@@ -24,37 +25,47 @@ class Router {
     if (routes) {
       this.routeMaps = buildRouteMaps(store, routes);
     }
+
+    if (startRouting) {
+      this.startRouting();
+    }
   }
 
   onLinkClick = (event) => {
     const el = event.path ? event.path[0] : event.target;
-
-    event.preventDefault();
-    event.stopPropagation();
-
     const route = getRouteFromElement(el);
 
     if (!route) {
       return;
     }
 
-    const action = buildReduxAction(this.routeMaps, route);
-
-    if (action) {
-      this.store.dispatch(action);
-    }
+    dispatchAction(this.routeMaps, route, this.store);
   };
 
   registerRoutes = (routes) => {
     this.routeMaps = buildRouteMaps(this.store, routes);
   };
 
-  setLocation = (path) => {
-    console.log(`going to ${path}`);
+  setLocation = (route) => {
+    dispatchAction(this.routeMaps, route, this.store);
   };
 
-  startRouting = () => {
+  startRouting = (initialRoute = null) => {
     document.addEventListener(`click`, this.onLinkClick, true);
+
+    let route = initialRoute || this.initialRoute;
+
+    if (!route && window.location.hash.length > 1) {
+      route = window.location.hash.slice(1);
+    }
+
+    if (route) {
+      dispatchAction(this.routeMaps, route, this.store);
+    }
+
+    if (this.initialRoute) {
+      this.initialRoute = null;
+    }
   };
 
   stopRouting = () => {
