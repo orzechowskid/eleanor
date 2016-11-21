@@ -1,6 +1,6 @@
 {
   "name": "eleanor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Dan Orzechowski <orzechod@gmail.com>",
   "devDependencies": {
     "babel-core": "6.18.2",
