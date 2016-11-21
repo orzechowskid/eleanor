@@ -1,9 +1,11 @@
 # Eleanor
-Elegant and nearly zero-config routing for Redux apps
+Elegant and nearly zero-config routing, for React/Redux apps
+# About
+react-router is a perfectly fine piece of software but I don't like the idea of having to render my route tree, or even of assuming that there's a (non-shallow) tree of routes at all.  I wanted something 
 # Getting Started
     $ npm install --save eleanor
 # Usage
-Briefly: import/require the module in your usual way, create a new Router object, and pass it a list of objects each containing an Express-compatible route string and a React component (or anything, really).
+Briefly: import/require the module in your usual way, create a new Router object, and pass it a list of objects each containing an Express-compatible route string and a React component (or, I suppose, any other ol' thing you want associated with that route string).
 
 Here's a simple example:
 
@@ -15,7 +17,8 @@ Here's a simple example:
     
     const INITIAL_STATE = {
       routeInfo: {
-        
+        route: null,
+        component: null
       }
     };
     
@@ -56,6 +59,8 @@ Here's a simple example:
       }]
     });
     
+    router.startRouting();
+    
     ReactDOM.render(<App />, document.getElementById('wherever'));
     
     
@@ -77,7 +82,9 @@ Here's a simple example:
       
       return (
         <div>
-          <ChildComponent />
+          {ChildComponent && (
+            <ChildComponent />
+          )}
         </div>
       );
     };
