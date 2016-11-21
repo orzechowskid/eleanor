@@ -1,0 +1,41 @@
+{
+  "name": "eleanor",
+  "version": "1.0.0",
+  "private": false,
+  "devDependencies": {
+    "babel-core": "6.18.2",
+    "babel-eslint": "7.0.0",
+    "babel-loader": "6.2.8",
+    "babel-preset-react-app": "1.0.0",
+    "eslint": "3.8.1",
+    "eslint-config-react-app": "0.3.0",
+    "eslint-plugin-flowtype": "2.21.0",
+    "eslint-plugin-import": "2.0.1",
+    "eslint-plugin-jsx-a11y": "2.2.3",
+    "eslint-plugin-react": "6.4.1",
+    "react": "15.4.0",
+    "react-dom": "15.4.0",
+    "react-redux": "4.4.6",
+    "redux": "3.6.0",
+    "webpack": "1.13.3",
+    "webpack-dev-server": "1.16.2"
+  },
+  "dependencies": {
+    "path-to-regexp": "^1.7.0"
+  },
+  "main": "dist/eleanor.js",
+  "scripts": {
+    "build-dev": "NODE_ENV=development webpack",
+    "build-example": "npm run build-dev && NODE_ENV=development webpack --config example/webpack.config.js",
+    "build-prod": "NODE_ENV=production webpack --config webpack.config.js",
+    "serve": "npm run build-example && NODE_ENV=development webpack-dev-server --content-base example/"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
+}
