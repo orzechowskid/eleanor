@@ -1,7 +1,7 @@
 # Eleanor
 Elegant and nearly zero-config routing, for React/Redux apps
 # About
-react-router is a perfectly fine piece of software but I don't like the idea of having to render my route tree, or even of assuming that there's a (non-shallow) tree of routes at all.  I wanted something tiny which worked like page.js but which used Redux to notify my app of route changes, and which isn't couple with React, so here we are.
+react-router is a perfectly fine piece of software but I don't like the idea of having to render my route tree, or even of assuming that there's a (non-shallow) tree of routes at all.  I wanted something tiny which worked like page.js but which used Redux to notify my app of route changes, and which isn't couple with React, so here we are: a ~6KB (prod-minified) routing library named after my cat.
 # Getting Started
     $ npm install --save eleanor
 # Usage
