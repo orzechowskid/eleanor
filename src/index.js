@@ -50,16 +50,21 @@ class Router {
     dispatchAction(this.routeMaps, route, this.store);
   };
 
-  startRouting = (initialRoute = null) => {
+  startRouting = (opts = {}) => {
     document.addEventListener(`click`, this.onLinkClick, true);
 
+    const {
+      initialRoute = null,
+      useLocationHash = false
+    } = opts;
     let route = initialRoute || this.initialRoute;
 
-    if (!route && window.location.hash.length > 1) {
+    if (!route && useLocationHash && window.location.hash.length > 1) {
       route = window.location.hash.slice(1);
     }
 
     if (route) {
+      console.log(`start routing:`, route);
       dispatchAction(this.routeMaps, route, this.store);
     }
 
