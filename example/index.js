@@ -8,7 +8,7 @@ import {
 } from 'redux';
 import Router, {
   actionType as ROUTE_CHANGE_ACTION_TYPE
-} from '../dev/yarrr';
+} from '../dev/eleanor';
 
 import App from './App';
 import PageOne from './PageOne';

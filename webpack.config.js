@@ -25,7 +25,7 @@ switch (process.env.NODE_ENV) {
 
     webpackConfig = Object.assign({}, webpackConfig, {
       output: {
-        filename: `yarrr.js`,
+        filename: `eleanor.js`,
         library: true,
         libraryTarget: `commonjs2`,
         path: `${__dirname}/dev`
@@ -38,7 +38,7 @@ switch (process.env.NODE_ENV) {
 
     webpackConfig = Object.assign({}, webpackConfig, {
       output: {
-        filename: `yarrr.js`,
+        filename: `eleanor.js`,
         library: true,
         libraryTarget: `commonjs2`,
         path: `${__dirname}/dist`
