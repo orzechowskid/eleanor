@@ -156,3 +156,5 @@ The dispatched action is a [Flux Standard Action](https://github.com/acdlite/flu
     $ open http://localhost:8080
     [ ... verify verify verify ... ]
     $ npm run build-prod
+# Testing
+I've tested this with exactly one app in one browser on one platform.  I don't think I'm doing anything too crazy or stupid in the code, but caveat emptor.
