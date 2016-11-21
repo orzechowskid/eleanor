@@ -5,9 +5,9 @@ react-router is a perfectly fine piece of software but I don't like the idea of 
 # Getting Started
     $ npm install --save eleanor
 # Usage
-Briefly: importrequire the module in your usual way, create a new Router object, and pass it a list of objects each containing an Express-compatible route string and a React component (or, I suppose, any other thing you want associated with that route string).
+Briefly: import/require the module in your usual way, create a new Router object, and pass it a list of objects each containing an Express-compatible route string and a React component (or, I suppose, any other thing you want associated with that route string).
 
-Here's a simple example:
+Here's a simple example in ES6:
 
     // appReducer.js
     
