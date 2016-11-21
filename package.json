@@ -1,7 +1,7 @@
 {
   "name": "eleanor",
   "version": "1.0.0",
-  "private": false,
+  "author": "Dan Orzechowski <orzechod@gmail.com>",
   "devDependencies": {
     "babel-core": "6.18.2",
     "babel-eslint": "7.0.0",
