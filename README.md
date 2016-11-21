@@ -149,7 +149,7 @@ The dispatched action is a [Flux Standard Action](https://github.com/acdlite/flu
     meta: Object // additional information such as route params
 `payload` is one of the route-definition objects passed to the router by the user.  `meta` currently contains one field, `routeParams`, which is a map of route params to route values.
 # Development
-    $ git clone https://www.github.com/orzechowski/eleanor/eleanor.git
+    $ git clone https://www.github.com/orzechowskid/eleanor/eleanor.git
     $ npm install
     $ cd src
     [ ... edit edit edit ... ]
