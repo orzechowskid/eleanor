@@ -131,6 +131,7 @@ tells your router to start listening for route changes.
 tells your router to stop listening for route changes.
 # Redux Actions
 A Redux action is created and dispatched upon each route change:
+
     import {
       actionType
     } from 'eleanor';
