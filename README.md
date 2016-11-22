@@ -62,7 +62,9 @@ Here's a simple example in ES6:
       }]
     });
     
-    router.startRouting();
+    router.startRouting({
+      initialRoute: '/page1'
+    });
     
     ReactDOM.render(<App />, document.getElementById('wherever'));
     
@@ -127,9 +129,12 @@ adds routes to an existing router.  `routes` is a list of route-definition objec
     component: any
     
 `component` is intended to be a `ReactElement` but can be any object or primitive you want.
-### Router.startRouting()
-    router.startRouting();
-tells your router to start listening for route changes.
+### Router.startRouting({opts})
+    router.startRouting({
+      initialRoute: '/page1', // a route registered with Eleanor
+      useLocationHash: false // set to true if you want to route to the current location hash (or none if no hash is present)
+    });
+tells your router to start listening for route changes.  Specify `initialRoute` if you want to set a specific route initially; specify `useLocationHash` if you want to set the initial route to whatever's specified by the current page location hash (falling back to no route if no location hash is present).
 ### Router.stopRouting()
     router.stopRouting();
 tells your router to stop listening for route changes.
