@@ -31,6 +31,16 @@ class Router {
     }
   }
 
+  onHashchange = (event) => {
+    const route = window.location.hash.slice(1);
+
+    if (!route) {
+      return;
+    }
+
+    dispatchAction(this.routeMaps, route, this.store);
+  };
+
   onLinkClick = (event) => {
     const el = event.path ? event.path[0] : event.target;
     const route = getRouteFromElement(el);
@@ -47,11 +57,13 @@ class Router {
   };
 
   setLocation = (route) => {
+    window.location.hash = route;
     dispatchAction(this.routeMaps, route, this.store);
   };
 
   startRouting = (opts = {}) => {
     document.addEventListener(`click`, this.onLinkClick, true);
+    window.addEventListener(`popstate`, this.onHashchange);
 
     const {
       initialRoute = null,
@@ -64,7 +76,6 @@ class Router {
     }
 
     if (route) {
-      console.log(`start routing:`, route);
       dispatchAction(this.routeMaps, route, this.store);
     }
 
@@ -75,6 +86,7 @@ class Router {
 
   stopRouting = () => {
     document.removeEventListener(`click`, this.onLinkClick);
+    window.removeEventListener(`hashchange`, this.onHashchange);
   };
 }
 

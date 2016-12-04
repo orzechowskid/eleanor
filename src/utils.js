@@ -39,6 +39,7 @@ const dispatchAction = (routeMaps, route, store) => {
   const routeParamResults = matchedRoute.regexp.exec(route);
   const action = {
     meta: {
+      path: window.location.hash.slice(1),
       routeParams: matchedRoute.regexpKeys.reduce((obj, key, idx) => {
         return {
           ...obj,
