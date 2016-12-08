@@ -2,8 +2,7 @@ import {
   actionType,
 
   dispatchAction,
-  buildRouteMaps,
-  getRouteFromElement
+  buildRouteMaps
 } from './utils';
 
 class Router {
@@ -31,25 +30,12 @@ class Router {
     }
   }
 
-  onHashchange = (event) => {
+  onHashchange = () => {
     const route = window.location.hash.slice(1);
 
-    if (!route) {
-      return;
+    if (route) {
+      dispatchAction(this.routeMaps, route, this.store);
     }
-
-    dispatchAction(this.routeMaps, route, this.store);
-  };
-
-  onLinkClick = (event) => {
-    const el = event.path ? event.path[0] : event.target;
-    const route = getRouteFromElement(el);
-
-    if (!route) {
-      return;
-    }
-
-    dispatchAction(this.routeMaps, route, this.store);
   };
 
   registerRoutes = (routes) => {
@@ -62,7 +48,6 @@ class Router {
   };
 
   startRouting = (opts = {}) => {
-    document.addEventListener(`click`, this.onLinkClick, true);
     window.addEventListener(`popstate`, this.onHashchange);
 
     const {
@@ -85,7 +70,6 @@ class Router {
   };
 
   stopRouting = () => {
-    document.removeEventListener(`click`, this.onLinkClick);
     window.removeEventListener(`hashchange`, this.onHashchange);
   };
 }

@@ -1,6 +1,6 @@
 {
   "name": "eleanor",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Dan Orzechowski <orzechod@gmail.com>",
   "devDependencies": {
     "babel-core": "6.18.2",
@@ -25,17 +25,14 @@
   },
   "main": "dist/eleanor.js",
   "scripts": {
-    "build-dev": "NODE_ENV=development webpack",
-    "build-example": "npm run build-dev && NODE_ENV=development webpack --config example/webpack.config.js",
-    "build-prod": "NODE_ENV=production webpack --config webpack.config.js",
-    "serve": "npm run build-example && NODE_ENV=development webpack-dev-server --content-base example/"
+    "build:dev": "NODE_ENV=development webpack",
+    "build:example": "npm run build:dev && NODE_ENV=development webpack --config example/webpack.config.js",
+    "build:prod": "NODE_ENV=production webpack --config webpack.config.js",
+    "serve": "npm run build:example && NODE_ENV=development webpack-dev-server --content-base example/"
   },
   "babel": {
     "presets": [
       "react-app"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }

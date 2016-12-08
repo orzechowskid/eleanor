@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const webpack = require(`webpack`);
 
 /* common config options */
 

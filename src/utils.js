@@ -56,35 +56,12 @@ const dispatchAction = (routeMaps, route, store) => {
   return true;
 };
 
-/**
- * @param {Element} el - a DOM element
- * @return {String} a hash route, or undefined
- */
-const getRouteFromElement = (el) => {
-  if (el.nodeName.toLowerCase() !== `a` ||
-      el.hasAttribute(`download`) ||
-      el.getAttribute(`rel`) === `external` ||
-      el.target) {
-    return;
-  }
-
-  const href = el.getAttribute(`href`);
-
-  if (!href || href[0] !== `#`) {
-    return;
-  }
-
-  return href.slice(1);
-};
-
 export { ACTION_TYPE as actionType };
 export { buildRouteMaps };
 export { dispatchAction };
-export { getRouteFromElement };
 export default {
   actionType: ACTION_TYPE,
 
   buildRouteMaps,
-  dispatchAction,
-  getRouteFromElement
+  dispatchAction
 };
