@@ -1,7 +1,8 @@
 {
   "name": "eleanor",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "Dan Orzechowski <orzechod@gmail.com>",
+  "homepage": "https://github.com/orzechowskid/eleanor",
   "devDependencies": {
     "babel-core": "6.18.2",
     "babel-eslint": "7.0.0",
