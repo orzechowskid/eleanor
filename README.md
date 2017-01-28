@@ -115,8 +115,10 @@ Here's a simple example in ES6:
     });
 creates a new Eleanor router and, optionally, provide some routes.  `store` is the Redux store upon which the router will dispatch actions, and is a required field.  `routes` is a list of route-definition objects which look like this:
 
-    route: String
-    component: any
+    {
+      route: String
+      component: any
+    }
     
 `component` is intended to be a `ReactElement` but can be any object or primitive you want.
 ### Router.registerRoutes(routes)
@@ -125,20 +127,24 @@ creates a new Eleanor router and, optionally, provide some routes.  `store` is t
     );
 adds routes to an existing router.  `routes` is a list of route-definition objects which look like this:
 
-    route: String
-    component: any
+    {
+      route: String
+      component: any
+    }
     
 `component` is intended to be a `ReactElement` but can be any object or primitive you want.
 ### Router.startRouting({opts})
     router.startRouting({
-      initialRoute: '/page1', // a route registered with Eleanor
-      useLocationHash: false // set to true if you want to route to the current location hash (or none if no hash is present)
+      initialRoute: '/page1', // a route registered with this router
+      useLocationHash: false // set to true if you want to route to the current location hash (falling back to `initialRoute` if no hash is present)
     });
-tells your router to start listening for route changes.  Specify `initialRoute` if you want to set a specific route initially; specify `useLocationHash` if you want to set the initial route to whatever's specified by the current page location hash (falling back to no route if no location hash is present).
+tells your router to start listening for route changes.  Specify `initialRoute` if you want to set a specific route initially; specify `useLocationHash` if you want to set the initial route to whatever's specified by the current page location hash (falling back to `initialRoute` if no location hash is present, then `/` if `initialRoute` is not specified).
 ### Router.stopRouting()
     router.stopRouting();
 tells your router to stop listening for route changes.
-
+### Router.pushRoute(route)
+    router.pushRoute('/some/app/path');
+tells your router to go to the path provided and dispatch an action to your app state.
 # Redux Actions
 A Redux action is created and dispatched upon each route change:
 
@@ -157,7 +163,7 @@ The dispatched action is a [Flux Standard Action](https://github.com/acdlite/flu
     type: String // action type
     payload: Object // the matched route-definition object
     meta: Object // additional information such as route params
-`payload` is one of the route-definition objects passed to the router by the user.  `meta` currently contains one field, `routeParams`, which is a map of route params to route values.
+`payload` is one of the route-definition objects passed to the router by the user.  `meta` contains `routeParams`, which is a map of route params to route values, and `path`, the current app route.
 
 # Development
     $ git clone https://www.github.com/orzechowskid/eleanor/eleanor.git

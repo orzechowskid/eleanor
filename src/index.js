@@ -38,6 +38,16 @@ class Router {
     }
   };
 
+  pushRoute = (route) => {
+    let routeToPush = route;
+
+    if (route.startsWith(`#`)) {
+      routeToPush = routeToPush.slice(1);
+    }
+
+    window.location.hash = routeToPush;
+  };
+
   registerRoutes = (routes) => {
     this.routeMaps = buildRouteMaps(this.store, routes);
   };
