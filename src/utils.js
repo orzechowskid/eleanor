@@ -4,7 +4,7 @@ const NAMESPACE = `pageRouter`;
 const ACTION_TYPE = `${NAMESPACE}/TRIGGER_ROUTE`;
 
 /**
- * @param {Object} store - a Redux store against which to dispatch actions
+ * @param {Object} store - a Redux store to which actions are dispatched
  * @param {Array<Object>} routes - a list of external route descriptions
  * @return {Array<Object>} a list of internal route mappings
  */
@@ -23,7 +23,7 @@ const buildRouteMaps = (store, routes) => {
 
 /**
  * @param {Array<Object>} routeMaps - a list of internal route mappings
- * @param {String} route - a route against which to match
+ * @param {String} route - a route which (potentially) matches a route map
  * @param {Object} store - a Redux store
  * @return {boolean} whether or not an action was dispatched
  */

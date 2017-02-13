@@ -30,7 +30,10 @@ class Router {
     }
   }
 
-  onHashchange = () => {
+  /**
+   * invoked when the popstate event is fired
+   */
+  onPopstate = () => {
     const route = window.location.hash.slice(1);
 
     if (route) {
@@ -38,34 +41,39 @@ class Router {
     }
   };
 
-  pushRoute = (route) => {
-    let routeToPush = route;
-
-    if (route.startsWith(`#`)) {
-      routeToPush = routeToPush.slice(1);
-    }
-
-    window.location.hash = routeToPush;
-  };
-
+  /**
+   * register a list of routes with the router
+   *
+   * @param {List<Object>} routes - a list of route objects
+   */
   registerRoutes = (routes) => {
     this.routeMaps = buildRouteMaps(this.store, routes);
   };
 
+  /**
+   * manually trigger a route
+   *
+   * @param {String} route - a route to trigger
+   */
   setLocation = (route) => {
     window.location.hash = route;
     dispatchAction(this.routeMaps, route, this.store);
   };
 
+  /**
+   * begin listening for routing events
+   *
+   * @param {Object} opts
+   */
   startRouting = (opts = {}) => {
     const {
       initialRoute = null,
       useLocationHash = false
     } = opts;
+    const currentRoute = window.location.hash.slice(1) || null;
     let route = null;
 
-    window.addEventListener(`hashchange`, this.onHashchange);
-    window.addEventListener(`popstate`, this.onHashchange);
+    window.addEventListener(`popstate`, this.onPopstate);
 
     if (useLocationHash && window.location.hash.length > 1) {
       route = window.location.hash.slice(1);
@@ -73,12 +81,15 @@ class Router {
       route = initialRoute || this.initialRoute || `/`;
     }
 
-    window.history.replaceState(null, null, `#${route}`);
-    dispatchAction(this.routeMaps, route, this.store);
+    if (route !== currentRoute) {
+      window.history.pushState(null, null, `#${route}`);
+    } else {
+      this.onPopstate();
+    }
   };
 
   stopRouting = () => {
-    window.removeEventListener(`hashchange`, this.onHashchange);
+    window.removeEventListener(`popstate`, this.onPopstate);
   };
 }
 
