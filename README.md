@@ -163,9 +163,9 @@ tells your router to start listening for route changes.  Specify `initialRoute` 
 
 tells your router to stop listening for route changes.
 
-### Router.pushRoute(route)
+### Router.setLocation(route)
 
-    router.pushRoute('/some/app/path');
+    router.setLocation('/some/app/path');
 
 tells your router to go to the path provided and dispatch an action to your app state.
 
