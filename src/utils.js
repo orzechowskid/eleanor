@@ -4,11 +4,10 @@ const NAMESPACE = `pageRouter`;
 const ACTION_TYPE = `${NAMESPACE}/TRIGGER_ROUTE`;
 
 /**
- * @param {Object} store - a Redux store to which actions are dispatched
  * @param {Array<Object>} routes - a list of external route descriptions
  * @return {Array<Object>} a list of internal route mappings
  */
-const buildRouteMaps = (store, routes) => {
+const buildRouteMaps = (routes) => {
   return routes.map((routeDescription) => {
     let regexpKeys = [];
     const regexp = pathToRegexp(routeDescription.route, regexpKeys);

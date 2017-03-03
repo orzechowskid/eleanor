@@ -22,11 +22,11 @@ class Router {
     this.store = store;
 
     if (routes) {
-      this.routeMaps = buildRouteMaps(store, routes);
-    }
+      registerRoutes(routes);
 
-    if (startRouting) {
-      this.startRouting();
+      if (startRouting) {
+        this.startRouting();
+      }
     }
   }
 
@@ -47,7 +47,7 @@ class Router {
    * @param {List<Object>} routes - a list of route objects
    */
   registerRoutes = (routes) => {
-    this.routeMaps = buildRouteMaps(this.store, routes);
+    this.routeMaps = buildRouteMaps(routes);
   };
 
   /**
@@ -83,9 +83,9 @@ class Router {
 
     if (route !== currentRoute) {
       window.history.pushState(null, null, `#${route}`);
-    } else {
-      this.onPopstate();
     }
+
+    this.dispatchAction(this.routeMaps, route, this.store);
   };
 
   stopRouting = () => {
