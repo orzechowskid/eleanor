@@ -85,7 +85,7 @@ class Router {
       window.history.pushState(null, null, `#${route}`);
     }
 
-    this.dispatchAction(this.routeMaps, route, this.store);
+    dispatchAction(this.routeMaps, route, this.store);
   };
 
   stopRouting = () => {
