@@ -127,11 +127,14 @@ Here's a simple example in ES6:
 creates a new Eleanor router and, optionally, provide some routes.  `store` is the Redux store upon which the router will dispatch actions, and is a required field.  `routes` is a list of route-definition objects; each route-definition object must have, at minimum, a field named `route`:
 
     {
-      route: String,
-      foo: "bar"
+      route: String
     }
     
-This route-definition object will be the payload of the action dispatched to your Redux store.
+This route-definition object will be the payload of the action dispatched to your Redux store.  Put anything else in there you want:
+    {
+      route: '/page1',
+      foo: 'bar'
+    }
     
 ## Router.registerRoutes(routes)
 
@@ -139,15 +142,18 @@ This route-definition object will be the payload of the action dispatched to you
       Array<Object> // a list of route definitions
     );
 
-adds routes to an existing router.  `routes` is a list of route-definition objects; each route-definition object must have, at minimum, a field named `route`:
+tells your router to use a new set of routes.  `routes` is a list of route-definition objects; each route-definition object must have, at minimum, a field named `route`:
 
     {
-      route: String,
-      foo: "bar"
+      route: String
     }
     
-This route-definition object will be the payload of the action dispatched to your Redux store.
-
+This route-definition object will be the payload of the action dispatched to your Redux store.  Put anything else in there you want:
+    {
+      route: '/page1',
+      foo: 'bar'
+    }
+    
 ### Router.startRouting({opts})
 
     router.startRouting({
@@ -190,8 +196,12 @@ The dispatched action is a [Flux Standard Action](https://github.com/acdlite/flu
     payload: Object // the matched route-definition object
     meta: Object // additional information such as route params
 
-`payload` is one of the route-definition objects passed to the router by the user.  `meta` contains `routeParams`, which is a map of route params to route values, and `path`, the current app route.
-
+`payload` is the matched route-definition objects passed to the router by the user.  `meta` is an object containing some information about the matched route:
+    {
+      routeParams: Object, // route param -> value map
+      path: String // the actual current path (as opposed to the matched string)
+    }
+    
 # Development
 
     $ git clone https://www.github.com/orzechowskid/eleanor/eleanor.git
@@ -201,7 +211,7 @@ The dispatched action is a [Flux Standard Action](https://github.com/acdlite/flu
     $ npm run serve
     $ open http://localhost:8080
     [ ... verify verify verify ... ]
-    $ npm run build-prod
+    $ npm run build:prod
 
 # Testing
 
