@@ -131,6 +131,7 @@ creates a new Eleanor router and, optionally, provide some routes.  `store` is t
     }
     
 This route-definition object will be the payload of the action dispatched to your Redux store.  Put anything else in there you want:
+    
     {
       route: '/page1',
       foo: 'bar'
@@ -149,6 +150,7 @@ tells your router to use a new set of routes.  `routes` is a list of route-defin
     }
     
 This route-definition object will be the payload of the action dispatched to your Redux store.  Put anything else in there you want:
+    
     {
       route: '/page1',
       foo: 'bar'
@@ -197,6 +199,7 @@ The dispatched action is a [Flux Standard Action](https://github.com/acdlite/flu
     meta: Object // additional information such as route params
 
 `payload` is the matched route-definition objects passed to the router by the user.  `meta` is an object containing some information about the matched route:
+    
     {
       routeParams: Object, // route param -> value map
       path: String // the actual current path (as opposed to the matched string)
