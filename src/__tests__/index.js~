@@ -1,4 +1,0 @@
-import eleanor from '../index.js';
-
-describe(`eleanor`, function() {
-});
