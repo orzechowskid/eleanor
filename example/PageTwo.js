@@ -7,7 +7,6 @@ function onClick(router) {
 }
 
 export default (props) => {
-    console.log(`p2 props:`, props);
     return (
         <div style={{
             background: 'orange'

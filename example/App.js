@@ -8,7 +8,6 @@ const mapStateToProps = (appState) => {
 };
 
 const App = (props) => {
-    console.log(`App props:`, props);
     const {
         router,
         routeInfo
