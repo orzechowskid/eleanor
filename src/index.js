@@ -1,96 +1,96 @@
 import {
-  actionType,
+    actionType,
 
-  dispatchAction,
-  buildRouteMaps
+    dispatchAction,
+    buildRouteMaps
 } from './utils';
 
 class Router {
-  constructor(args) {
-    const {
-      initialRoute,
-      routes,
-      startRouting,
-      store
-    } = args;
+    constructor(args) {
+        const {
+            initialRoute,
+            routes,
+            startRouting,
+            store
+        } = args;
 
-    if (!store || !store.dispatch) {
-      throw new Error(`Redux store must be provided to router`);
+        if (!store || !store.dispatch) {
+            throw new Error(`Redux store must be provided to router`);
+        }
+
+        this.initialRoute = initialRoute;
+        this.store = store;
+
+        if (routes) {
+            this.registerRoutes(routes);
+
+            if (startRouting) {
+                this.startRouting();
+            }
+        }
     }
 
-    this.initialRoute = initialRoute;
-    this.store = store;
+    /**
+     * invoked when the popstate event is fired
+     */
+    onPopstate = () => {
+        const route = window.location.hash.slice(1);
 
-    if (routes) {
-      registerRoutes(routes);
+        if (route) {
+            dispatchAction(this.routeMaps, route, this.store);
+        }
+    };
 
-      if (startRouting) {
-        this.startRouting();
-      }
-    }
-  }
+    /**
+     * register a list of routes with the router
+     *
+     * @param {List<Object>} routes - a list of route objects
+     */
+    registerRoutes = (routes) => {
+        this.routeMaps = buildRouteMaps(routes);
+    };
 
-  /**
-   * invoked when the popstate event is fired
-   */
-  onPopstate = () => {
-    const route = window.location.hash.slice(1);
+    /**
+     * manually trigger a route
+     *
+     * @param {String} route - a route to trigger
+     */
+    setLocation = (route) => {
+        window.location.assign(`#${route}`);
+        dispatchAction(this.routeMaps, route, this.store);
+    };
 
-    if (route) {
-      dispatchAction(this.routeMaps, route, this.store);
-    }
-  };
+    /**
+     * begin listening for routing events
+     *
+     * @param {Object} opts
+     */
+    startRouting = (opts = {}) => {
+        const {
+            initialRoute = null,
+            useLocationHash = false
+        } = opts;
+        const currentRoute = window.location.hash.slice(1) || null;
+        let route = null;
 
-  /**
-   * register a list of routes with the router
-   *
-   * @param {List<Object>} routes - a list of route objects
-   */
-  registerRoutes = (routes) => {
-    this.routeMaps = buildRouteMaps(routes);
-  };
+        window.addEventListener(`popstate`, this.onPopstate);
 
-  /**
-   * manually trigger a route
-   *
-   * @param {String} route - a route to trigger
-   */
-  setLocation = (route) => {
-    window.location.hash = route;
-    dispatchAction(this.routeMaps, route, this.store);
-  };
+        if (useLocationHash && window.location.hash.length > 1) {
+            route = window.location.hash.slice(1);
+        } else {
+            route = initialRoute || this.initialRoute || `/`;
+        }
 
-  /**
-   * begin listening for routing events
-   *
-   * @param {Object} opts
-   */
-  startRouting = (opts = {}) => {
-    const {
-      initialRoute = null,
-      useLocationHash = false
-    } = opts;
-    const currentRoute = window.location.hash.slice(1) || null;
-    let route = null;
+        if (route !== currentRoute) {
+            window.history.pushState(null, null, `#${route}`);
+        }
 
-    window.addEventListener(`popstate`, this.onPopstate);
+        dispatchAction(this.routeMaps, route, this.store);
+    };
 
-    if (useLocationHash && window.location.hash.length > 1) {
-      route = window.location.hash.slice(1);
-    } else {
-      route = initialRoute || this.initialRoute || `/`;
-    }
-
-    if (route !== currentRoute) {
-      window.history.pushState(null, null, `#${route}`);
-    }
-
-    dispatchAction(this.routeMaps, route, this.store);
-  };
-
-  stopRouting = () => {
-    window.removeEventListener(`popstate`, this.onPopstate);
-  };
+    stopRouting = () => {
+        window.removeEventListener(`popstate`, this.onPopstate);
+    };
 }
 
 export { actionType };
