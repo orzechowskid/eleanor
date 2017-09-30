@@ -8,7 +8,7 @@ import {
 } from 'redux';
 import Router, {
   actionType as ROUTE_CHANGE_ACTION_TYPE
-} from '../dev/eleanor';
+} from '../src/index';
 
 import App from './App';
 import PageOne from './PageOne';
@@ -62,6 +62,6 @@ router.startRouting();
 
 ReactDOM.render((
   <Provider store={store}>
-    <App />
+    <App router={router} />
   </Provider>
 ), document.getElementById('app'));

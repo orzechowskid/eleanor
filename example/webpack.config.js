@@ -1,21 +1,19 @@
-const basedir = require('path').dirname(__filename);
-
 module.exports = {
-  entry: `${basedir}/index.js`,
+    entry: `./example/index.js`, /* relative to project root */
 
-  module: {
-    loaders: [{
-      loader: `babel-loader`,
-      test: /\.js$/
-    }]
-  },
+    module: {
+        loaders: [{
+            loader: `babel-loader`,
+            test: /\.js$/
+        }]
+    },
 
-  output: {
-    filename: `example.js`,
-    path: basedir
-  },
+    output: {
+        filename: `example.js`,
+        path: `./example`
+    },
 
-  resolve: {
-    extensions: [ ``, `.js` ]
-  }
+    resolve: {
+        extensions: [ ``, `.js` ]
+    }
 };
