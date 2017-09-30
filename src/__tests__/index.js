@@ -19,21 +19,6 @@ const MOCK_ROUTES = [{
 }];
 
 describe(`the router constructor`, function() {
-    it(`starts routing if the proper option is set at instantiation time`, function() {
-        const store = new MockStore();
-        const router = new Eleanor({
-            initialRoute: `/page1`,
-            routes: MOCK_ROUTES,
-            startRouting: true,
-            store
-        });
-
-        window.addEventListener = jest.fn(function() {
-            console.log(`hellooo`);
-        });
-        expect(window.addEventListener).toHaveBeenCalledWith({ foo: `asdf` });
-    });
-
     it(`throws if no store is provided at instantiation time`, function() {
         expect(function() {
             const foo = new Eleanor();

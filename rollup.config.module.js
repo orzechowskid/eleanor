@@ -1,6 +1,5 @@
+import autoExternal from 'rollup-plugin-auto-external';
 import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
-import nodeResolve from 'rollup-plugin-node-resolve';
 import uglify from 'rollup-plugin-uglify';
 import {
     minify
@@ -10,17 +9,13 @@ export default {
     input: `src/index.js`,
     name: `eleanor`,
     output: {
-        file: `dist/eleanor.js`,
-        format: `umd`
+        file: `dist/index.es.js`,
+        format: `es`
     },
     plugins: [
+        autoExternal(),
         babel({
             exclude: `node_modules/**`
-        }),
-        nodeResolve({}),
-        commonjs({
-            include: `node_modules/**`,
-            sourceMap: false
         }),
         uglify({}, minify)
     ]

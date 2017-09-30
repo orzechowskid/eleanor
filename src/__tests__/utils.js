@@ -1,4 +1,10 @@
-import utils from '../utils.js';
+/* eslint-env jest */
+/* eslint func-names: off */
+
+import {
+    buildRouteMaps,
+    dispatchAction
+} from '../utils';
 
 class MockStore {
     constructor() {
@@ -8,25 +14,31 @@ class MockStore {
         });
         this.getState = jest.fn();
     }
-};
+}
 
 describe(`the buildRouteMaps function`, function() {
     
 });
 
 describe(`the dispatchAction function`, function() {
-    const mockRouteMaps = utils.buildRouteMaps([{
+    const mockRouteMaps = buildRouteMaps([{
         route: `/page1`,
         component: `foo`
     }, {
         route: `/page2`,
         component: `bar`
+    }, {
+        route: `/page3/id/:id/details`,
+        component: `baz`
     }]);
-    const mockRoute = `/page1`;
-    const mockStore = new MockStore();
+    let mockStore = null;
+
+    beforeEach(function() {
+        mockStore = new MockStore();
+    });
 
     it(`dispatches a Flux Standard Action`, function() {
-        utils.dispatchAction(mockRouteMaps, mockRoute, mockStore);
+        dispatchAction(mockRouteMaps, `/page1`, mockStore);
 
         expect(mockStore.actionHistory.length).toEqual(1);
 
@@ -35,5 +47,24 @@ describe(`the dispatchAction function`, function() {
         expect(dispatchedAction.meta).toBeDefined();
         expect(dispatchedAction.payload).toBeDefined();
         expect(dispatchedAction.type).toBeDefined();
+    });
+
+    it(`dispatches an action with a 'meta' field of the correct shape`, function() {
+        dispatchAction(mockRouteMaps, `/page3/id/foobar/details`, mockStore);
+
+        expect(mockStore.actionHistory.length).toEqual(1);
+
+        const dispatchedAction = mockStore.actionHistory[0];
+
+        expect(dispatchedAction.meta.path).toEqual(`/page3/id/foobar/details`);
+        expect(dispatchedAction.meta.routeParams).toEqual({
+            id: `foobar`
+        });
+    });
+
+    it(`does nothing if a matching route isn't found`, function() {
+        dispatchAction(mockRouteMaps, `/nooooooope`, mockStore);
+
+        expect(mockStore.actionHistory.length).toEqual(0);
     });
 });
