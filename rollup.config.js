@@ -10,7 +10,7 @@ export default {
     input: `src/index.js`,
     name: `eleanor`,
     output: {
-        file: `dist/eleanor.js`,
+        file: `dist/index.js`,
         format: `umd`
     },
     plugins: [
