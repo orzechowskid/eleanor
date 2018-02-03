@@ -5,3 +5,5 @@ dev
 example/example.js
 
 **/.tern-port
+
+.babelrc
